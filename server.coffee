@@ -61,3 +61,4 @@ listener = app.listen process.env.PORT, ->
 fetchRepo = ->
   execSync "git fetch origin"
   execSync "git reset --hard origin/glitch"
+  execSync "refresh"

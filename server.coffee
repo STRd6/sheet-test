@@ -54,11 +54,11 @@ app.post "/gh/hook", (req, res) ->
 
   fetchRepo()
 
-# Listen on App port
-listener = app.listen process.env.PORT, ->
-  console.log('Your app is listening on port ' + listener.address().port)
-
 fetchRepo = ->
   execSync "git fetch origin"
   execSync "git reset --hard origin/glitch"
   execSync "refresh"
+
+# Listen on App port
+listener = app.listen process.env.PORT, ->
+  console.log('Your app is listening on port ' + listener.address().port)

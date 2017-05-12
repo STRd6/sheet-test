@@ -1,3 +1,5 @@
+{execSync} = require('child_process')
+
 fs = require "fs"
 express = require "express"
 stylish = require 'stylish'
@@ -48,12 +50,14 @@ app.use stylish
 # Sync with GitHub Pushes
 app.post "/gh/hook", (req, res) ->
   payload = JSON.parse(req.body.payload)
-  console.log req.headers
-
-  console.log payload
   res.sendStatus(200)
-      
+
+  fetchRepo()
+
 # Listen on App port
 listener = app.listen process.env.PORT, ->
   console.log('Your app is listening on port ' + listener.address().port)
 
+fetchRepo = ->
+  execSync "git fetch origin"
+  execSync "git reset --hard origin/glitch"
